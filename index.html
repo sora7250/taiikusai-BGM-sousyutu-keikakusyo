@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 12mm 10mm 12mm 10mm;
+    @bottom-right {
+      content: "Page " counter(page) " / " counter(pages);
+      font-family: "MS Mincho", "ＭＳ 明朝", serif;
+      font-size: 8pt;
+      color: #888888;
+    }
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-border;
+  }
+
+  body {
+    font-family: "MS Mincho", "ＭＳ 明朝", "Hiragino Mincho ProN", serif;
+    color: #2b2b2b;
+    line-height: 1.35;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+  }
+
+  /* Page Break Control */
+  .page-container {
+    page-break-after: always;
+  }
+  .page-container:last-child {
+    page-break-after: avoid;
+  }
+
+  /* Page Header Block */
+  .header-card {
+    background: #fce4ec;
+    border-top: 3px solid #d81b60;
+    border-bottom: 3px solid #d81b60;
+    padding: 12px 15px;
+    text-align: center;
+    margin-bottom: 15px;
+    position: relative;
+  }
+
+  .header-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: #ad1457;
+  }
+
+  h1 {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #880e4f;
+    margin: 0 0 4px 0;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 10.5pt;
+    font-weight: bold;
+    color: #ad1457;
+    letter-spacing: 0.5px;
+  }
+
+  /* Meta Info Grid */
+  .meta-grid {
+    display: table;
+    width: 100%;
+    background: #fff8fa;
+    border: 1px solid #f8bbd0;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border-collapse: collapse;
+  }
+
+  .meta-row {
+    display: table-row;
+  }
+
+  .meta-cell {
+    display: table-cell;
+    padding: 6px 10px;
+    font-size: 9pt;
+    width: 50%;
+    border-bottom: 1px solid #fce4ec;
+  }
+
+  .meta-label {
+    font-weight: bold;
+    color: #880e4f;
+    display: inline-block;
+  }
+
+  /* Headings with Graphic Accents */
+  h2 {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #880e4f;
+    background: #fce4ec;
+    padding: 5px 10px;
+    border-left: 5px solid #d81b60;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    page-break-after: avoid;
+  }
+
+  .section-icon {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #d81b60;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .card-box {
+    background: #ffffff;
+    border: 1px solid #f8bbd0;
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-size: 9pt;
+  }
+
+  ul, ol {
+    margin: 4px 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  .badge {
+    background: #d81b60;
+    color: #ffffff;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 8pt;
+    font-weight: bold;
+    margin-right: 6px;
+    display: inline-block;
+  }
+
+  /* Timetable styling for Page 2 */
+  .timetable-title {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #880e4f;
+    border-bottom: 2px solid #d81b60;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    background: #ffffff;
+  }
+
+  th {
+    background: #f8bbd0;
+    color: #4a001f;
+    font-weight: bold;
+    padding: 5px 3px;
+    border: 1px solid #f48fb1;
+    text-align: center;
+  }
+
+  td {
+    padding: 4.5px 3px;
+    border: 1px solid #f48fb1;
+    text-align: center;
+  }
+
+  tr:nth-child(even) {
+    background-color: #fff8fa;
+  }
+
+  .record-box {
+    border: 1px dashed #d81b60;
+    padding: 1px 3px;
+    border-radius: 2px;
+    font-weight: bold;
+    color: #333;
+    font-size: 7.5pt;
+    white-space: nowrap;
+  }
+
+  .text-left {
+    text-align: left !important;
+  }
+
+  .summary-row {
+    background: #fce4ec !important;
+    font-weight: bold;
+    color: #880e4f;
+  }
+
+  .footer-text {
+    text-align: right;
+    font-size: 8pt;
+    color: #666666;
+    margin-top: 15px;
+    border-top: 1px solid #f8bbd0;
+    padding-top: 5px;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: 概要・権利関係・PA構成・トラブル対応 -->
+<div class="page-container">
+
+  <div class="header-card">
+    <h1>【会場BGM送出および運営計画書】</h1>
+    <div class="subtitle">【鹿児島県立奄美高等学校 第57回体育祭】</div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-row">
+      <div class="meta-cell"><span class="meta-label">■ 作成日：</span>2026年9月1日</div>
+      <div class="meta-cell"><span class="meta-label">■ 管　轄：</span>鹿児島県立奄美高等学校放送部機材班−第57回体育祭音響係</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-cell"><span class="meta-label">■ 開催イベント名：</span>鹿児島県立奄美高等学校 第57回 体育祭</div>
+      <div class="meta-cell"><span class="meta-label">■ 音響担当責任者：</span><b>吉浦 蒼空</b></div>
+    </div>
+  </div>
+
+  <h2><span class="section-icon"></span>1. 概要および運用基本方針</h2>
+  <div class="card-box">
+    <p style="margin: 0 0 6px 0;">本計画書は、鹿児島県立奄美高等学校「第57回 体育祭」における会場内BGMの送出、PA音響機器の操作、ならびに進行に伴う各種音響管理の円滑な運用を図るために作成されたものです。</p>
+    <ul>
+      <li><b>目的：</b> 体育祭プログラムの進行に合わせた効果的なBGM送出と、正確な進行管理の実現。</li>
+      <li><b>概要：</b> 権利遵守の徹底と、現場PC内仮想ミキサーを活用した柔軟かつトラブルゼロのオペレーション。</li>
+    </ul>
+  </div>
+
+  <h2><span class="section-icon"></span>2. 権利処理およびコンプライアンス</h2>
+  <div class="card-box">
+    <ul>
+      <li><span class="badge">JASRAC</span><b>包括利用許諾適用：</b> 本イベントで使用される<u>全125曲（PA再生音源およびCanvasCore吹奏楽団演奏楽曲）</u>については、一括包括利用許諾契約に基づき正当に使用されています。（個別番号表示省略）</li>
+      <li><span class="badge">Spotify</span><b>特別会場内BGM運用許諾：</b> 教育・公的イベント運用の一環として、Spotify Premiumサービスを利用した会場内BGM送出に関する特別運用許諾を取得済みです。二次配信（インターネットライブ配信・放送等）への二次利用は厳禁とします。</li>
+      <li><b>権利管理責任：</b> 音響担当責任者（<b>吉浦 蒼空</b>）のもと、著作隣接権および利用規定を厳格に順守します。</li>
+    </ul>
+  </div>
+
+  <h2><span class="section-icon"></span>3. PA音響システムおよび送出体制</h2>
+  <div class="card-box">
+    <ul>
+      <li><b>会場卓接続フロー：</b> 会場メイン卓（PAミキサー）に対し、<u>放送部所有PCを「ライン1本（ステレオAUX/LINE入出力）」で接続</u>するスマート＆省スペース構成。</li>
+      <li><b>PC内仮想ミキサーによる音源統合処理：</b> 送出PC内に構築した仮想ミキサー（Virtual Audio Mixer）を活用し、以下の3系統の音源をPC内でミックス・切替制御します。
+        <ol style="margin-top:2px; margin-bottom:2px;">
+          <li><b>Spotify Premium：</b> メインBGM、各競技用セットリスト（リストA〜T）</li>
+          <li><b>ポン出しソフト：</b> ファンファーレ、効果音（SE）、アナウンス用音源</li>
+          <li><b>つなぎ曲・アディショナルBGM：</b> 競技進行の合間や予備時間のバックグラウンドミュージック</li>
+        </ol>
+      </li>
+      <li><b>MIX処理：</b> 創出するすべての音源にはMIX音源を送出。</li>
+    </ul>
+  </div>
+
+  <h2><span class="section-icon"></span>4. トラブルシューティングおよび緊急時対応</h2>
+  <div class="card-box" style="margin-bottom:0;">
+    <ul>
+      <li><b>回線不通・配信遅延：</b> Spotifyの「オフライン再生機能」を活用し、全楽曲（リストA〜T）は事前ダウンロード完了の上で完全オフライン再生を実施。</li>
+      <li><b>PCフリーズ対策：</b> 同音源をセットした予備PCを並列接続。スイッチャー切り替えにより5秒以内にバックアップ再生へ復帰。</li>
+      <li><b>進行調整：</b> 遅延時はフェードアウトポイントで自然にクロスフェード。前倒し時はポン出しアディショナルBGMで無音状態を防止。</li>
+    </ul>
+  </div>
+
+  <div class="footer-text">
+    鹿児島県立奄美高等学校 第57回体育祭実行委員会 放送部・音響統括部門
+  </div>
+
+</div>
+
+<!-- PAGE 2: 進行タイムテーブル兼記録シート -->
+<div class="page-container">
+
+  <div class="timetable-title">
+    5. 会場BGM送出タイムテーブル 兼 進行記録シート
+  </div>
+  <p style="font-size: 8.5pt; margin: 0 0 8px 0; color: #555;">※当日の進行記録（定刻、遅延、前倒し等）を分単位で記録できる実用仕様です。</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 4%;">No.</th>
+        <th style="width: 7%;">予定</th>
+        <th style="width: 5%;">所要</th>
+        <th style="width: 15%;">種目・プログラム名</th>
+        <th style="width: 5%;">ID</th>
+        <th style="width: 17%;">リスト名</th>
+        <th style="width: 5%;">曲数</th>
+        <th style="width: 6%;">再生</th>
+        <th style="width: 5%;">MIX</th>
+        <th style="width: 18%;">進行記録・小書き欄</th>
+        <th style="width: 13%;">備考・オペレーション</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td><td>9:15</td><td>10分</td><td class="text-left">100m競走</td><td>A B</td><td class="text-left">男子(4曲)/女子(5曲)</td><td>9</td><td>33分</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">競技開始時送出</td>
+      </tr>
+      <tr>
+        <td>2</td><td>9:25</td><td>20分</td><td class="text-left">タイヤ引き</td><td>C D</td><td class="text-left">男子(7曲)/女子(6曲)</td><td>13</td><td>49分</td><td><b>〇</b></td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">MIX音源処理適用</td>
+      </tr>
+      <tr>
+        <td>-</td><td>9:45</td><td>10分</td><td class="text-left">給水タイム①</td><td>E</td><td class="text-left">給水タイム①</td><td>5</td><td>20分</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">BGM低音量送出</td>
+      </tr>
+      <tr>
+        <td>3</td><td>9:55</td><td>30分</td><td class="text-left">綱引き</td><td>F G</td><td class="text-left">男子(7曲)/女子(8曲)</td><td>15</td><td>61分</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">審判合図で音量調整</td>
+      </tr>
+      <tr>
+        <td>4</td><td>10:25</td><td>10分</td><td class="text-left">障害物競走</td><td>H I</td><td class="text-left">男子(6曲)/女子(6曲)</td><td>12</td><td>43分</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">実況アナ裏で調整</td>
+      </tr>
+      <tr>
+        <td>-</td><td>10:35</td><td>10分</td><td class="text-left">給水タイム②</td><td>J</td><td class="text-left">給水タイム</td><td>6</td><td>21分</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">水分補給案内挿入</td>
+      </tr>
+      <tr>
+        <td>5</td><td>10:45</td><td>20分</td><td class="text-left">ムカデ競争</td><td>K L</td><td class="text-left">男子(5曲)/女子(8曲)</td><td>13</td><td>42分</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">テンポ感重視</td>
+      </tr>
+      <tr>
+        <td>6</td><td>11:05</td><td>20分</td><td class="text-left">玉入れ</td><td>M N</td><td class="text-left">男子(7曲)/女子(7曲)</td><td>14</td><td>45分</td><td><b>〇</b></td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">MIX音源処理適用</td>
+      </tr>
+      <tr>
+        <td>7</td><td>11:25</td><td>20分</td><td class="text-left">PTA種目玉入れ</td><td>O</td><td class="text-left">PTA種目玉入れ</td><td>10</td><td>40分</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">幅広い年代向け楽曲</td>
+      </tr>
+      <tr>
+        <td>8</td><td>11:45</td><td>30分</td><td class="text-left">部活動紹介</td><td>P</td><td class="text-left">部活動紹介</td><td>10</td><td>33分</td><td><b>〇</b></td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">吹奏楽生演奏連携</td>
+      </tr>
+      <tr>
+        <td>-</td><td>12:15</td><td>60分</td><td class="text-left">昼食・休憩</td><td>Q</td><td class="text-left">昼食BGM</td><td>多数</td><td>13h</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">リラックスBGM</td>
+      </tr>
+      <tr>
+        <td>9</td><td>13:15</td><td>30分</td><td class="text-left">八月踊り</td><td>-</td><td class="text-left">伝統演目音源</td><td>-</td><td>-</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">専用音源送出</td>
+      </tr>
+      <tr>
+        <td>-</td><td>13:45</td><td>20分</td><td class="text-left">給水タイム③</td><td>R</td><td class="text-left">給水タイム</td><td>12</td><td>39分</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">午後の部開始案内</td>
+      </tr>
+      <tr>
+        <td>10</td><td>14:05</td><td>10分</td><td class="text-left">学年対抗リレー</td><td>S</td><td class="text-left">学年対抗リレー</td><td>6</td><td>24分</td><td><b>〇</b></td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">クライマックスMIX</td>
+      </tr>
+      <tr>
+        <td>-</td><td>14:15</td><td>20分</td><td class="text-left">閉会式</td><td>T</td><td class="text-left">閉会式BGM</td><td>-</td><td>-</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">式典・表彰用BGM</td>
+      </tr>
+      <tr>
+        <td>-</td><td>14:35</td><td>25分</td><td class="text-left">後片付け・解散</td><td>-</td><td class="text-left">退場・撤収BGM</td><td>-</td><td>-</td><td>-</td><td><span class="record-box">[ : ] 始 [ : ] 終 ( 分)</span></td><td class="text-left">15:00完全解散</td>
+      </tr>
+      <tr class="summary-row">
+        <td colspan="3">合計 / 総合指示</td>
+        <td colspan="8" class="text-left">総楽曲数：125曲 / 総再生時間：450分 (昼食除く) / 体育祭全体所要時間：350分</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer-text">
+    鹿児島県立奄美高等学校 第57回体育祭実行委員会 放送部・音響統括部門
+  </div>
+
+</div>
+
+</body>
+</html>
